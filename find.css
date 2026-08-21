@@ -1,0 +1,672 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background-color: #f8f7f2;
+    color: #171713;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 30px 60px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+header a {
+    text-decoration: none;
+    color: #171713;
+    font-size: 14px;
+}
+
+
+/* =========================
+   WORKSPACE
+========================= */
+
+.workspace {
+    min-height: calc(100vh - 90px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 60px;
+
+    flex-direction: column;
+}
+
+.workspace-content {
+    max-width: 700px;
+}
+
+.eyebrow {
+    color: #667044;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: clamp(55px, 7vw, 100px);
+
+    line-height: 0.95;
+
+    letter-spacing: -4px;
+
+    margin-bottom: 30px;
+}
+
+.workspace-content p:not(.eyebrow) {
+    font-size: 18px;
+
+    line-height: 1.6;
+
+    margin-bottom: 35px;
+}
+
+
+/* =========================
+   UPLOAD
+========================= */
+
+#imageInput {
+    display: none;
+}
+
+button {
+    padding: 18px 34px;
+
+    border: none;
+    border-radius: 2px;
+
+    background-color: #667044;
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+button:hover {
+    background-color: #525c36;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   SCANNING
+========================= */
+
+.scan-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(20, 20, 17, 0.55);
+
+    backdrop-filter: blur(5px);
+}
+
+.scan-image {
+    position: relative;
+
+    width: auto;
+
+    max-width: 70vw;
+    max-height: 70vh;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 60px rgba(23, 23, 19, 0.18);
+}
+
+.scan-image img {
+    width: auto;
+    height: auto;
+
+    max-width: 70vw;
+    max-height: 70vh;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+.scan-line {
+    position: absolute;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 1px;
+
+    background-color: #667044;
+
+    box-shadow:
+        0 0 8px rgba(102, 112, 68, 0.8),
+        0 0 25px rgba(102, 112, 68, 0.35);
+
+    animation: scan 2.5s ease-in-out infinite;
+}
+
+.scan-text {
+    position: absolute;
+
+    bottom: 35px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    padding: 10px 16px;
+
+    background: rgba(23, 23, 19, 0.75);
+
+    color: white;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: 3px;
+
+    white-space: nowrap;
+}
+
+@keyframes scan {
+
+    0% {
+        top: 0;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   RESULTS
+========================= */
+
+.result-area {
+    display: none;
+
+    margin-top: 50px;
+
+    text-align: center;
+}
+
+.result-title {
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 25px;
+}
+
+.result-image {
+    position: relative;
+
+    width: fit-content;
+
+    max-width: 70vw;
+
+    margin: auto;
+}
+
+.result-image img {
+    max-width: 70vw;
+    max-height: 65vh;
+
+    width: auto;
+    height: auto;
+
+    display: block;
+}
+
+.result-hint {
+    margin-top: 20px;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================
+   DETECTION BOXES
+========================= */
+
+.detected-image {
+    position: relative;
+
+    width: fit-content;
+
+    margin: auto;
+}
+
+.detection-boxes {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+}
+
+.detection-box {
+    position: absolute;
+
+    padding: 0;
+
+    border: 1px solid transparent;
+
+    border-radius: 0;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    pointer-events: auto;
+
+    transform: none;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.detection-box:hover {
+    border-color: #667044;
+
+    background: rgba(102, 112, 68, 0.12);
+
+    box-shadow:
+        0 0 20px rgba(102, 112, 68, 0.2);
+}
+
+.detection-box.selected {
+    border-color: #667044;
+
+    background: rgba(102, 112, 68, 0.20);
+
+    box-shadow:
+        0 0 25px rgba(102, 112, 68, 0.25);
+}
+
+.detection-box span {
+    position: absolute;
+
+    top: -28px;
+    left: 0;
+
+    padding: 6px 9px;
+
+    background: #667044;
+
+    color: white;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    opacity: 0;
+
+    transition: opacity 0.2s ease;
+
+    white-space: nowrap;
+}
+
+.detection-box:hover span,
+.detection-box.selected span {
+    opacity: 1;
+}
+
+
+/* =========================
+   SELECTION PANEL
+========================= */
+
+.selection-panel {
+    display: none;
+
+    max-width: 600px;
+
+    margin: 35px auto 0;
+
+    padding: 30px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(23, 23, 19, 0.08);
+
+    box-shadow:
+        0 15px 40px rgba(23, 23, 19, 0.06);
+}
+
+.selection-label {
+    margin-bottom: 12px;
+
+    color: #667044;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+.selection-panel h2 {
+    margin-bottom: 10px;
+
+    font-size: 28px;
+
+    text-transform: capitalize;
+}
+
+#selectedPieceDescription {
+    margin-bottom: 25px;
+
+    color: #666;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   CROP PREVIEW
+========================= */
+
+.crop-preview {
+    display: none;
+
+    width: 220px;
+
+    margin: 0 auto 25px;
+
+    text-align: center;
+}
+
+.crop-preview p {
+    margin-bottom: 12px;
+
+    color: #667044;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+.crop-preview img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    max-height: 300px;
+
+    object-fit: contain;
+
+    background: #e9e8e2;
+
+    border: 1px solid rgba(23, 23, 19, 0.08);
+}
+
+
+/* =========================
+   PRODUCT RESULTS
+========================= */
+
+.product-results {
+    display: none;
+
+    width: min(1100px, 90vw);
+
+    margin: 60px auto;
+
+    text-align: center;
+}
+
+.product-header {
+    margin-bottom: 45px;
+}
+
+.product-header .eyebrow {
+    margin-bottom: 18px;
+}
+
+.product-header h2 {
+    font-size: clamp(40px, 5vw, 65px);
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+
+    text-transform: capitalize;
+
+    margin-bottom: 15px;
+}
+
+#productResultsDescription {
+    max-width: 600px;
+
+    margin: auto;
+
+    color: #666;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   PRODUCT GRID
+========================= */
+
+.product-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 20px;
+
+    text-align: left;
+}
+
+
+/* =========================
+   PRODUCT CARD
+========================= */
+
+.product-card {
+    background: #ffffff;
+
+    border: 1px solid rgba(23, 23, 19, 0.08);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    cursor: pointer;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 18px 45px rgba(23, 23, 19, 0.1);
+}
+
+
+/* =========================
+   TEMPORARY PRODUCT IMAGE
+========================= */
+
+.product-image {
+    width: 100%;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #f5f5f5;
+    border-radius: 12px;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+
+/* =========================
+   PRODUCT INFO
+========================= */
+
+.product-info {
+    padding: 18px;
+}
+
+.product-info h3 {
+    font-size: 15px;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+}
+
+.product-store {
+    color: #777;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 12px;
+}
+
+.product-price {
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-to-image {
+    margin-top: 40px;
+
+    background: transparent;
+
+    color: #171713;
+
+    border: 1px solid #171713;
+}
+
+.back-to-image:hover {
+    background: #171713;
+
+    color: #ffffff;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    header {
+        padding: 25px 30px;
+    }
+
+    .workspace {
+        padding: 40px 25px;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .selection-panel {
+        padding: 22px;
+    }
+
+    .crop-preview {
+        width: 180px;
+    }
+
+}

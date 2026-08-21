@@ -1,0 +1,20 @@
+# Environment secrets
+server/.env
+
+# Python virtual environment
+visual-search/venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Node dependencies
+server/node_modules/
+
+# Local generated/debug files
+structure.txt
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "jacket1",
+    "name": "Test Jacket 1",
+    "store": "FIND Test Store",
+    "price": 79,
+    "currency": "USD",
+    "image": "jacket1.jpg",
+    "url": "#"
+  },
+  {
+    "id": "jacket2",
+    "name": "Test Jacket 2",
+    "store": "FIND Test Store",
+    "price": 95,
+    "currency": "USD",
+    "image": "jacket2.jpg",
+    "url": "#"
+  },
+  {
+    "id": "jacket3",
+    "name": "Test Jacket 3",
+    "store": "FIND Test Store",
+    "price": 120,
+    "currency": "USD",
+    "image": "jacket3.jpg",
+    "url": "#"
+  },
+  {
+    "id": "jacket4",
+    "name": "Test Jacket 4",
+    "store": "FIND Test Store",
+    "price": 65,
+    "currency": "USD",
+    "image": "jacket4.jpg",
+    "url": "#"
+  },
+  {
+    "id": "jacket5",
+    "name": "Test Jacket 5",
+    "store": "FIND Test Store",
+    "price": 110,
+    "currency": "USD",
+    "image": "jacket5.jpg",
+    "url": "#"
+  }
+]

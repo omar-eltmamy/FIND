@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FIND — Workspace</title>
+
+    <link rel="stylesheet" href="find.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">FIND</div>
+        <a href="index.html">Back</a>
+    </header>
+
+    <main class="workspace">
+
+        <!-- UPLOAD -->
+
+        <div class="workspace-content">
+
+            <p class="eyebrow">UPLOAD IT. FIND IT. DRESS IT.</p>
+
+            <h1>Find your piece.</h1>
+
+            <p>
+                Upload an image and we'll identify the pieces inside it.
+            </p>
+
+            <input type="file" id="imageInput" accept="image/*">
+
+            <button onclick="document.getElementById('imageInput').click()">
+                Upload Image
+            </button>
+
+        </div>
+
+
+        <!-- SCANNING OVERLAY -->
+
+        <div class="scan-overlay" id="scanOverlay">
+
+            <div class="scan-image" id="scanImage"></div>
+
+            <div class="scan-line"></div>
+
+            <div class="scan-text">
+                FINDING YOUR PIECE
+            </div>
+
+        </div>
+
+
+        <!-- DETECTION RESULTS -->
+
+        <div class="result-area" id="resultArea">
+
+            <p class="result-title">
+                WE FOUND IT
+            </p>
+
+            <div class="result-image" id="resultImage"></div>
+
+
+            <!-- SELECTION PANEL -->
+
+            <div class="selection-panel" id="selectionPanel">
+
+                <!-- CROP PREVIEW -->
+
+                <div class="crop-preview" id="cropPreview">
+
+                    <p>SELECTED ITEM</p>
+
+                    <img
+                        id="cropPreviewImage"
+                        src=""
+                        alt="Selected clothing item"
+                    >
+
+                </div>
+
+
+                <p class="selection-label">
+                    SELECTED PIECE
+                </p>
+
+                <h2 id="selectedPieceName"></h2>
+
+                <p id="selectedPieceDescription"></p>
+
+                <button id="findPieceButton">
+                    FIND THIS
+                </button>
+
+            </div>
+
+
+            <p class="result-hint">
+                Select the piece you want.
+            </p>
+
+        </div>
+
+
+        <!-- PRODUCT RESULTS -->
+
+        <div class="product-results" id="productResults">
+
+            <div class="product-header">
+
+                <p class="eyebrow">
+                    SIMILAR PIECES
+                </p>
+
+                <h2 id="productResultsTitle"></h2>
+
+                <p id="productResultsDescription"></p>
+
+            </div>
+
+
+            <div class="product-grid" id="productGrid"></div>
+
+
+            <button
+                class="back-to-image"
+                id="backToImage"
+            >
+                BACK TO IMAGE
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <script src="find.js"></script>
+
+</body>
+
+</html>
