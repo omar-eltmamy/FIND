@@ -17,14 +17,27 @@ CORS(app)
 
 
 # ==========================================
-# FILES
+# FILE PATHS
 # ==========================================
 
-CATALOG_FOLDER = "catalog"
+BASE_DIR = os.path.dirname(
+    os.path.abspath(__file__)
+)
 
-CATALOG_DATA_FILE = "catalog.json"
+CATALOG_FOLDER = os.path.join(
+    BASE_DIR,
+    "catalog"
+)
 
-EMBEDDINGS_FILE = "catalog_embeddings.pt"
+CATALOG_DATA_FILE = os.path.join(
+    BASE_DIR,
+    "catalog.json"
+)
+
+EMBEDDINGS_FILE = os.path.join(
+    BASE_DIR,
+    "catalog_embeddings.pt"
+)
 
 
 # ==========================================
@@ -97,6 +110,8 @@ print(
 
 def get_embedding(image):
 
+    image.thumbnail((768, 768))
+
     inputs = processor(
         images=image,
         return_tensors="pt"
@@ -128,7 +143,6 @@ def search_catalog(image):
 
     results = []
 
-
     for product in catalog:
 
         similarity = torch.matmul(
@@ -140,12 +154,10 @@ def search_catalog(image):
             similarity.item()
         )
 
-
         product_info = catalog_data_by_image.get(
             product["image"],
             {}
         )
-
 
         results.append({
 
@@ -157,12 +169,10 @@ def search_catalog(image):
 
         })
 
-
     results.sort(
         key=lambda item: item["score"],
         reverse=True
     )
-
 
     return results
 
@@ -203,9 +213,7 @@ def search():
             "error": "No image uploaded."
         }), 400
 
-
     file = request.files["image"]
-
 
     try:
 
@@ -213,11 +221,9 @@ def search():
             file.stream
         ).convert("RGB")
 
-
         results = search_catalog(
             image
         )
-
 
         return jsonify({
 
@@ -225,14 +231,12 @@ def search():
 
         })
 
-
     except Exception as error:
 
         print(
             "SEARCH ERROR:",
             error
         )
-
 
         return jsonify({
 
@@ -251,12 +255,18 @@ if __name__ == "__main__":
         "Starting FIND visual search server..."
     )
 
+    port = int(
+        os.environ.get(
+            "PORT",
+            5000
+        )
+    )
 
     app.run(
 
-        host="127.0.0.1",
+        host="0.0.0.0",
 
-        port=5000,
+        port=port,
 
         debug=False
 
