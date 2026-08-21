@@ -1,3 +1,4 @@
+```python
 import os
 import json
 import torch
@@ -5,7 +6,7 @@ import torch
 from PIL import Image
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-from transformers import CLIPProcessor, CLIPModel
+from transformers import CLIPImageProcessor, CLIPVisionModelWithProjection
 
 
 # ==========================================
@@ -78,18 +79,18 @@ print(
 
 
 # ==========================================
-# LOAD CLIP
+# LOAD CLIP VISION MODEL
 # ==========================================
 
 print("Loading FIND visual model...")
 
-model = CLIPModel.from_pretrained(
-    "openai/clip-vit-base-patch32",
-    low_cpu_mem_usage=True
+processor = CLIPImageProcessor.from_pretrained(
+    "openai/clip-vit-base-patch32"
 )
 
-processor = CLIPProcessor.from_pretrained(
-    "openai/clip-vit-base-patch32"
+model = CLIPVisionModelWithProjection.from_pretrained(
+    "openai/clip-vit-base-patch32",
+    low_cpu_mem_usage=True
 )
 
 model.eval()
@@ -127,11 +128,11 @@ def get_embedding(image):
         return_tensors="pt"
     )
 
-    with torch.no_grad():
+    with torch.inference_mode():
 
-        features = model.get_image_features(
+        features = model(
             **inputs
-        ).pooler_output
+        ).image_embeds
 
     features = features / features.norm(
         dim=-1,
@@ -273,11 +274,8 @@ if __name__ == "__main__":
     )
 
     app.run(
-
         host="0.0.0.0",
-
         port=port,
-
         debug=False
-
     )
+```
