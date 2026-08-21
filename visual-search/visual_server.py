@@ -13,7 +13,17 @@ from transformers import CLIPProcessor, CLIPModel
 # ==========================================
 
 app = Flask(__name__)
-CORS(app)
+
+CORS(
+    app,
+    resources={
+        r"/*": {
+            "origins": [
+                "https://omar-eltmamy.github.io"
+            ]
+        }
+    }
+)
 
 
 # ==========================================
