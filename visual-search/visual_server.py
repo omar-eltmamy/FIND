@@ -1,4 +1,3 @@
-```python
 import os
 import json
 import torch
@@ -278,4 +277,3 @@ if __name__ == "__main__":
         port=port,
         debug=False
     )
-```
