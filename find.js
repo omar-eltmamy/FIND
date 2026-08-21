@@ -110,6 +110,7 @@ async function resizeImageForAI(file) {
 
 }
 
+
 imageInput.addEventListener("change", async function () {
 
     const file = imageInput.files[0];
@@ -138,13 +139,14 @@ imageInput.addEventListener("change", async function () {
 
 
     const optimizedFile =
-    await resizeImageForAI(file);
+        await resizeImageForAI(file);
 
-formData.append(
-    "image",
-    optimizedFile,
-    "find-image.jpg"
-);
+
+    formData.append(
+        "image",
+        optimizedFile,
+        "find-image.jpg"
+    );
 
 
     try {
@@ -155,7 +157,7 @@ formData.append(
 
         const response =
             await fetch(
-                "http://localhost:3000/analyze",
+                "https://find-production-61f1.up.railway.app/analyze",
                 {
                     method: "POST",
                     body: formData
@@ -640,7 +642,7 @@ findPieceButton.addEventListener(
 
             const searchResponse =
                 await fetch(
-                    "http://127.0.0.1:5000/search",
+                    "https://find-production-ffd2.up.railway.app/search",
                     {
                         method: "POST",
                         body: formData
@@ -771,7 +773,7 @@ function showProductResults(
                 <div class="product-image">
 
                     <img
-                        src="http://127.0.0.1:5000/catalog/${product.image}"
+                        src="https://find-production-ffd2.up.railway.app/catalog/${product.image}"
                         alt="${product.name || "Product"}"
                     >
 
